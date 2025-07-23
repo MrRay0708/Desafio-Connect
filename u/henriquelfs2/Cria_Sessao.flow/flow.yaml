@@ -1,0 +1,24 @@
+summary: Cria_Sessao
+description: ''
+value:
+  modules:
+    - id: a
+      value:
+        type: script
+        input_transforms: {}
+        is_trigger: false
+        path: u/henriquelfs2/get_token
+    - id: b
+      value:
+        type: script
+        input_transforms:
+          token:
+            type: javascript
+            expr: results.a
+        is_trigger: false
+        path: u/henriquelfs2/live_session
+schema:
+  $schema: 'https://json-schema.org/draft/2020-12/schema'
+  type: object
+  properties: {}
+  required: []

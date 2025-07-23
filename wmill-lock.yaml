@@ -1,1 +1,8 @@
-locks: {}
+locks:
+  u/henriquelfs2/face_match: 5780244eb70121c43d2058c7177480b44bceb05809069ee1fc1bee1dcf130933
+  u/henriquelfs2/get_token: 0a0fd3fed56f55262e1129d7b215ad8def3dcbaeb6616ed06a780edea0f74503
+  u/henriquelfs2/idp: 33376a4e5aed00dce6a4d830e0546e60a448546444eac221d27e4b82109ea578
+  u/henriquelfs2/live_session: e1d1db6971db45030c1e8a35664ded71834bd5c439bdace66f32139d8d00b696
+  u/henriquelfs2/live_verification: 92af8d605a1592fae10c5b8569130ebec4aa2b52dfcf265a1667de41bd48657d
+  u/henriquelfs2/organizador: 9bc071f585c5cc1153846bcb297432ff195051f216b73ae8dc9a1ef3dd37a4d3
+  u/henriquelfs2/qrcode: 8e54ddae8a16fc03d7addc3ee10017c5ec4dfaaf4acc558cba9352e98976f7e2

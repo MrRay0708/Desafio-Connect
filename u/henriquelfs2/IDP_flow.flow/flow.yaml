@@ -1,0 +1,34 @@
+summary: IDP_flow
+description: ''
+value:
+  modules:
+    - id: a
+      value:
+        type: script
+        input_transforms: {}
+        is_trigger: false
+        path: u/henriquelfs2/get_token
+    - id: b
+      value:
+        type: script
+        input_transforms:
+          cnh_frente_b64:
+            type: javascript
+            expr: 'flow_input["CNH Frente"]'
+          token:
+            type: javascript
+            expr: results.a
+        is_trigger: false
+        path: u/henriquelfs2/idp
+schema:
+  $schema: 'https://json-schema.org/draft/2020-12/schema'
+  type: object
+  order:
+    - CNH Frente
+  properties:
+    CNH Frente:
+      type: string
+      description: ''
+      contentEncoding: base64
+      default: ''
+  required: []

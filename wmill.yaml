@@ -1,11 +1,10 @@
 defaultTs: bun
-includes:
-  - f/**
+includes: []
 excludes: []
 codebases: []
-skipVariables: true
+skipVariables: false
 skipResources: true
-skipSecrets: true
+skipSecrets: false
 skipScripts: false
 skipFlows: false
 skipApps: false

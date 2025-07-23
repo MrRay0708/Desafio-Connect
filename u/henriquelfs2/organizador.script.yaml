@@ -1,0 +1,27 @@
+summary: Organizador
+description: ''
+lock: '!inline u/henriquelfs2/organizador.script.lock'
+kind: script
+schema:
+  $schema: 'https://json-schema.org/draft/2020-12/schema'
+  type: object
+  properties:
+    resultado_facematch_1:
+      type: object
+      description: ''
+      default: null
+      properties: {}
+    resultado_facematch_2:
+      type: object
+      description: ''
+      default: null
+      properties: {}
+    resultado_liveness:
+      type: object
+      description: ''
+      default: null
+      properties: {}
+  required:
+    - resultado_liveness
+    - resultado_facematch_1
+    - resultado_facematch_2

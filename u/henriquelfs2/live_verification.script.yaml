@@ -1,0 +1,21 @@
+summary: Live_verification
+description: ''
+lock: '!inline u/henriquelfs2/live_verification.script.lock'
+kind: script
+schema:
+  $schema: 'https://json-schema.org/draft/2020-12/schema'
+  type: object
+  properties:
+    session_id:
+      type: string
+      description: ''
+      default: null
+      originalType: string
+    token:
+      type: string
+      description: ''
+      default: null
+      originalType: string
+  required:
+    - session_id
+    - token

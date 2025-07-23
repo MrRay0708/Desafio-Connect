@@ -1,0 +1,34 @@
+summary: QrCode_flow
+description: ''
+value:
+  modules:
+    - id: b
+      value:
+        type: script
+        input_transforms: {}
+        is_trigger: false
+        path: u/henriquelfs2/get_token
+    - id: a
+      value:
+        type: script
+        input_transforms:
+          cnh_verso_b64:
+            type: javascript
+            expr: 'flow_input["CNH Verso"]'
+          token:
+            type: javascript
+            expr: results.b
+        is_trigger: false
+        path: u/henriquelfs2/qrcode
+schema:
+  $schema: 'https://json-schema.org/draft/2020-12/schema'
+  type: object
+  order:
+    - CNH Verso
+  properties:
+    CNH Verso:
+      type: string
+      description: ''
+      contentEncoding: base64
+      default: ''
+  required: []

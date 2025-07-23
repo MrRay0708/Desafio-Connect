@@ -1,0 +1,21 @@
+summary: IDP
+description: ''
+lock: '!inline u/henriquelfs2/idp.script.lock'
+kind: script
+schema:
+  $schema: 'https://json-schema.org/draft/2020-12/schema'
+  type: object
+  properties:
+    cnh_frente_b64:
+      type: string
+      description: ''
+      default: null
+      originalType: string
+    token:
+      type: string
+      description: ''
+      default: null
+      originalType: string
+  required:
+    - cnh_frente_b64
+    - token

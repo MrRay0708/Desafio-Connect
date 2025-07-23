@@ -1,0 +1,118 @@
+summary: Verification
+description: ''
+value:
+  modules:
+    - id: a
+      value:
+        type: whileloopflow
+        modules:
+          - id: b
+            value:
+              type: script
+              input_transforms: {}
+              is_trigger: false
+              path: u/henriquelfs2/get_token
+            continue_on_error: false
+          - id: c
+            value:
+              type: script
+              input_transforms:
+                session_id:
+                  type: javascript
+                  value: ''
+                  expr: flow_input.SessionId
+                token:
+                  type: javascript
+                  value: ''
+                  expr: results.b
+              is_trigger: false
+              path: u/henriquelfs2/live_verification
+            continue_on_error: false
+            sleep:
+              type: static
+              value: 10
+        skip_failures: false
+      stop_after_if:
+        error_message: null
+        expr: result.result.status == "DONE"
+        skip_if_stopped: false
+    - id: d
+      value:
+        type: script
+        input_transforms: {}
+        is_trigger: false
+        path: u/henriquelfs2/get_token
+    - id: f
+      value:
+        type: script
+        input_transforms:
+          rosto1_b64:
+            type: javascript
+            expr: flow_input.CNH
+          rosto2_b64:
+            type: javascript
+            expr: flow_input.QRCODE
+          token:
+            type: javascript
+            expr: results.d
+        is_trigger: false
+        path: u/henriquelfs2/face_match
+    - id: e
+      value:
+        type: script
+        input_transforms: {}
+        is_trigger: false
+        path: u/henriquelfs2/get_token
+    - id: g
+      value:
+        type: script
+        input_transforms:
+          rosto1_b64:
+            type: javascript
+            expr: flow_input.QRCODE
+          rosto2_b64:
+            type: javascript
+            expr: results.c.result.frontalImage
+          token:
+            type: javascript
+            expr: results.e
+        is_trigger: false
+        path: u/henriquelfs2/face_match
+    - id: h
+      value:
+        type: script
+        input_transforms:
+          resultado_facematch_1:
+            type: javascript
+            expr: results.f
+          resultado_facematch_2:
+            type: javascript
+            expr: results.g
+          resultado_liveness:
+            type: javascript
+            expr: results.c.result
+        is_trigger: false
+        path: u/henriquelfs2/organizador
+schema:
+  $schema: 'https://json-schema.org/draft/2020-12/schema'
+  type: object
+  order:
+    - SessionId
+    - QRCODE
+    - CNH
+  properties:
+    CNH:
+      type: string
+      description: ''
+      contentEncoding: base64
+      default: ''
+    QRCODE:
+      type: string
+      description: ''
+      contentEncoding: base64
+      default: ''
+    SessionId:
+      type: string
+      description: ''
+      default: ''
+  required: []

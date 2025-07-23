@@ -1,0 +1,15 @@
+summary: Live_Session
+description: ''
+lock: '!inline u/henriquelfs2/live_session.script.lock'
+kind: script
+schema:
+  $schema: 'https://json-schema.org/draft/2020-12/schema'
+  type: object
+  properties:
+    token:
+      type: string
+      description: ''
+      default: null
+      originalType: string
+  required:
+    - token

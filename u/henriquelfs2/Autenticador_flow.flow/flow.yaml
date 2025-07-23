@@ -1,0 +1,175 @@
+summary: Autenticador_flow
+description: >-
+  Este flow serve para autenticar um documento, seja pela veracidade das
+  informações, ou por face matching
+value:
+  modules:
+    - id: Token1
+      value:
+        type: script
+        input_transforms: {}
+        is_trigger: false
+        path: u/henriquelfs2/get_token
+    - id: IDP
+      value:
+        type: script
+        input_transforms:
+          cnh_frente_b64:
+            type: javascript
+            expr: 'flow_input["CNH Frontal"]'
+          token:
+            type: javascript
+            expr: results.Token1
+        is_trigger: false
+        path: u/henriquelfs2/idp
+      continue_on_error: false
+    - id: Token2
+      value:
+        type: script
+        input_transforms: {}
+        is_trigger: false
+        path: u/henriquelfs2/get_token
+    - id: QRCODE
+      value:
+        type: script
+        input_transforms:
+          cnh_verso_b64:
+            type: javascript
+            expr: 'flow_input["CNH Verso"]'
+          token:
+            type: javascript
+            expr: results.Token2
+        is_trigger: false
+        path: u/henriquelfs2/qrcode
+    - id: Token3
+      value:
+        type: script
+        input_transforms: {}
+        is_trigger: false
+        path: u/henriquelfs2/get_token
+    - id: SESSION
+      value:
+        type: script
+        input_transforms:
+          token:
+            type: javascript
+            expr: results.Token3
+        is_trigger: false
+        path: u/henriquelfs2/live_session
+    - id: loop
+      value:
+        type: whileloopflow
+        modules:
+          - id: Token4
+            value:
+              type: script
+              input_transforms: {}
+              is_trigger: false
+              path: u/henriquelfs2/get_token
+          - id: VERIFICATION
+            value:
+              type: script
+              input_transforms:
+                session_id:
+                  type: javascript
+                  value: ''
+                  expr: results.SESSION.result.processId
+                token:
+                  type: javascript
+                  value: ''
+                  expr: results.Token4
+              is_trigger: false
+              path: u/henriquelfs2/live_verification
+            continue_on_error: false
+            sleep:
+              type: static
+              value: 15
+        skip_failures: false
+      stop_after_if:
+        error_message: null
+        expr: result.result.status == "DONE"
+        skip_if_stopped: false
+    - id: Token5
+      value:
+        type: script
+        input_transforms: {}
+        is_trigger: false
+        path: u/henriquelfs2/get_token
+    - id: CNHxQR
+      value:
+        type: script
+        input_transforms:
+          rosto1_b64:
+            type: javascript
+            expr: 'results.IDP.result[0].crops[0].value'
+          rosto2_b64:
+            type: javascript
+            expr: 'results.QRCODE.result[0].crops[0].value'
+          token:
+            type: javascript
+            expr: results.Token5
+        is_trigger: false
+        path: u/henriquelfs2/face_match
+    - id: Token6
+      value:
+        type: script
+        input_transforms: {}
+        is_trigger: false
+        path: u/henriquelfs2/get_token
+    - id: QRxLIVE
+      value:
+        type: script
+        input_transforms:
+          rosto1_b64:
+            type: javascript
+            expr: 'results.QRCODE.result[0].crops[0].value'
+          rosto2_b64:
+            type: javascript
+            expr: results.VERIFICATION.result.frontalImage
+          token:
+            type: javascript
+            expr: results.Token6
+        is_trigger: false
+        path: u/henriquelfs2/face_match
+  failure_module:
+    id: failure
+    value:
+      type: rawscript
+      content: |-
+        import os
+        def main(message: str, name: str, step_id: str):
+            flow_id = os.environ.get("WM_ROOT_FLOW_JOB_ID")
+            print("message", message)
+            print("name", name)
+            print("step_id", step_id)
+            return { "message": message, "flow_id": flow_id, "step_id": step_id, "recover": False }
+      input_transforms:
+        name:
+          type: javascript
+          expr: error.name
+        message:
+          type: javascript
+          expr: error.message
+        step_id:
+          type: javascript
+          expr: error.step_id
+      language: python3
+schema:
+  $schema: 'https://json-schema.org/draft/2020-12/schema'
+  type: object
+  order:
+    - CNH Frontal
+    - CNH Verso
+  prompt_for_ai: ''
+  properties:
+    CNH Frontal:
+      type: string
+      description: ''
+      contentEncoding: base64
+      default: ''
+    CNH Verso:
+      type: string
+      description: ''
+      contentEncoding: base64
+      default: ''
+  required: []

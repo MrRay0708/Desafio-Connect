@@ -1,0 +1,1045 @@
+summary: AutenticadorCNH
+value:
+  css:
+    buttoncomponent:
+      button:
+        class: ''
+        style: ''
+      container:
+        class: ''
+        style: ''
+    imagecomponent:
+      image:
+        class: ''
+        style: ''
+  fullscreen: false
+  grid:
+    - '12':
+        fixed: false
+        fullHeight: false
+        h: 8
+        w: 12
+        x: 0
+        'y': 0
+      '3':
+        fixed: false
+        fullHeight: false
+        h: 9
+        w: 3
+        x: 0
+        'y': 0
+      id: b
+      data:
+        id: b
+        type: mardowncomponent
+        componentInput:
+          type: templatev2
+          connections: []
+          eval: |-
+            <center>
+              <br>
+              <h1>Autenticador de CNH</h1>
+              <br>
+              <h2>Este aplicativo tem como função autenticar um documento através do face matching e veracidade das informações apresentadas. Siga o passo a passo e aguarde o "Ok" em cada etapa</h2>
+            </center>
+          fieldType: template
+        configuration:
+          size:
+            type: static
+            value: Default
+        customCss:
+          container:
+            class: ''
+            style: ''
+    - '12':
+        fixed: false
+        fullHeight: false
+        h: 17
+        w: 12
+        x: 0
+        'y': 8
+      '3':
+        fixed: false
+        fullHeight: false
+        h: 19
+        w: 3
+        x: 0
+        'y': 9
+      id: e
+      data:
+        id: e
+        type: tabscomponent
+        configuration:
+          tabsKind:
+            type: static
+            value: accordion
+        customCss:
+          allTabs:
+            class: ''
+            style: ''
+          container:
+            class: ''
+            style: ''
+          selectedTab:
+            class: ''
+            style: ''
+          tabRow:
+            class: ''
+            style: ''
+        disabledTabs:
+          - type: static
+            value: false
+            fieldType: boolean
+          - type: static
+            value: false
+            fieldType: boolean
+          - type: static
+            value: false
+            fieldType: boolean
+        numberOfSubgrids: 3
+        tabs:
+          - 'Passo 1: Frente da CNH'
+          - 'Passo 2: Verso da CNH'
+          - 'Passo 3: Certificação de imagem'
+    - '12':
+        fixed: false
+        fullHeight: false
+        h: 21
+        w: 12
+        x: 0
+        'y': 25
+      '3':
+        fixed: false
+        fullHeight: false
+        h: 26
+        w: 3
+        x: 0
+        'y': 28
+      id: i
+      data:
+        id: i
+        type: containercomponent
+        configuration: {}
+        customCss:
+          container:
+            class: ''
+            style: ''
+        numberOfSubgrids: 1
+  hiddenInlineScripts:
+    - type: runnableByPath
+      name: IDP_flow
+      autoRefresh: false
+      fields:
+        CNH Frente:
+          type: evalv2
+          value: ''
+          connections:
+            - id: result
+              componentId: g
+          expr: 'g.result[0].data'
+          fieldType: string
+      path: u/henriquelfs2/IDP_flow
+      recomputeOnInputChanged: true
+      runType: flow
+      schema:
+        $schema: 'https://json-schema.org/draft/2020-12/schema'
+        type: object
+        order:
+          - CNH Frente
+        properties:
+          CNH Frente:
+            type: string
+            description: ''
+            contentEncoding: base64
+            default: ''
+        required: []
+    - type: runnableByPath
+      name: QrCode_flow
+      autoRefresh: false
+      fields:
+        CNH Verso:
+          type: evalv2
+          value: ''
+          connections:
+            - id: result
+              componentId: c
+          expr: 'c.result[0].data'
+          fieldType: string
+      path: u/henriquelfs2/QrCode_flow
+      recomputeOnInputChanged: true
+      runType: flow
+      schema:
+        $schema: 'https://json-schema.org/draft/2020-12/schema'
+        type: object
+        order:
+          - CNH Verso
+        properties:
+          CNH Verso:
+            type: string
+            description: ''
+            contentEncoding: base64
+            default: ''
+        required: []
+    - type: runnableByPath
+      name: Verification
+      autoRefresh: false
+      fields:
+        CNH:
+          type: evalv2
+          value: ''
+          connections:
+            - id: result
+              componentId: bg_0
+          expr: 'bg_0.result.result[0].crops[0].value'
+          fieldType: string
+        QRCODE:
+          type: evalv2
+          value: ''
+          connections:
+            - id: result
+              componentId: bg_1
+          expr: 'bg_1.result.result[0].crops[0].value'
+          fieldType: string
+        SessionId:
+          type: evalv2
+          value: ''
+          connections:
+            - id: result
+              componentId: h
+          expr: h.result.result.processId
+          fieldType: string
+      path: u/henriquelfs2/Verification
+      recomputeOnInputChanged: true
+      runType: flow
+      schema:
+        $schema: 'https://json-schema.org/draft/2020-12/schema'
+        type: object
+        order:
+          - SessionId
+          - QRCODE
+          - CNH
+        properties:
+          CNH:
+            type: string
+            description: ''
+            contentEncoding: base64
+            default: ''
+          QRCODE:
+            type: string
+            description: ''
+            contentEncoding: base64
+            default: ''
+          SessionId:
+            type: string
+            description: ''
+            default: ''
+        required: []
+  hideLegacyTopBar: true
+  mobileViewOnSmallerScreens: true
+  norefreshbar: false
+  subgrids:
+    e-0:
+      - '12':
+          fixed: true
+          fullHeight: true
+          h: 11
+          w: 5
+          x: 0
+          'y': 0
+        '3':
+          fixed: true
+          fullHeight: false
+          h: 8
+          w: 3
+          x: 0
+          'y': 0
+        id: f
+        data:
+          id: f
+          type: htmlcomponent
+          componentInput:
+            type: templatev2
+            autoRefresh: true
+            connections: []
+            eval: >-
+              <div style="display: flex; justify-content: center; align-items:
+              center; height: 40vh; flex-direction: column;">
+
+              <center>
+                <body>
+                  <h1>Captura da Frente da CNH</h1><br>
+                  <p>Envie uma foto nítida da frente do seu documento CNH em JPG ou PNG</p>
+                </body>
+              </center>
+
+              </div>
+            fields: {}
+            fieldType: template
+            hideRefreshButton: false
+            recomputeOnInputChanged: true
+          configuration: {}
+          customCss:
+            container:
+              class: ''
+              style: ''
+      - '12':
+          fixed: false
+          fullHeight: false
+          h: 3
+          w: 1
+          x: 6
+          'y': 4
+        '3':
+          fixed: false
+          fullHeight: false
+          h: 2
+          w: 1
+          x: 2
+          'y': 8
+        id: o
+        data:
+          id: o
+          type: htmlcomponent
+          componentInput:
+            type: templatev2
+            connections:
+              - id: result
+                componentId: bg_0
+            eval: |
+              <div style="display: flex; align-items: center; height: 100px;">
+              <h1>
+              <p>${bg_0.result.status.message}
+              </h1>
+              </div>
+            fieldType: template
+          configuration: {}
+          customCss:
+            container:
+              class: ''
+              style: ''
+      - '12':
+          fixed: false
+          fullHeight: true
+          h: 11
+          w: 5
+          x: 7
+          'y': 0
+        '3':
+          fixed: false
+          fullHeight: false
+          h: 4
+          w: 3
+          x: 0
+          'y': 10
+        id: g
+        data:
+          id: g
+          type: fileinputcomponent
+          configuration:
+            acceptedFileTypes:
+              type: static
+              value:
+                - image/*
+            afterIcon:
+              type: static
+            allowMultiple:
+              type: static
+              value: false
+            beforeIcon:
+              type: static
+            color:
+              type: static
+            copyButton:
+              type: static
+            disabled:
+              type: static
+              value: false
+            disableNoText:
+              type: static
+            fillContainer:
+              type: static
+            includeMimeType:
+              type: static
+              value: false
+            label:
+              type: static
+            size:
+              type: static
+            style:
+              type: static
+            submittedFileText:
+              type: static
+              value: Selected file
+            text:
+              type: static
+              value: Arraste e solte os documento ou selecione manualmente
+            tooltip:
+              type: static
+            triggerOnAppLoad:
+              type: static
+          customCss:
+            container:
+              class: ''
+              style: ''
+    e-1:
+      - '12':
+          fixed: true
+          fullHeight: true
+          h: 11
+          w: 5
+          x: 0
+          'y': 0
+        '3':
+          fixed: true
+          fullHeight: false
+          h: 7
+          w: 3
+          x: 0
+          'y': 0
+        id: a
+        data:
+          id: a
+          type: htmlcomponent
+          componentInput:
+            type: templatev2
+            autoRefresh: true
+            connections: []
+            eval: >-
+              <div style="display: flex; justify-content: center; align-items:
+              center; height: 40vh; flex-direction: column;">
+
+              <center>
+                <body>
+                  <h1>Captura do Verso da CNH</h1><br>
+                  <p>Agora envie uma foto nítida do verso do seu documento CNH,
+                onde há um QRcode</p>
+                </body>
+              </center>
+
+              </div>
+            fields: {}
+            fieldType: template
+            hideRefreshButton: false
+            recomputeOnInputChanged: true
+          configuration: {}
+          customCss:
+            container:
+              class: ''
+              style: ''
+      - '12':
+          fixed: false
+          fullHeight: false
+          h: 3
+          w: 1
+          x: 6
+          'y': 4
+        '3':
+          fixed: false
+          fullHeight: false
+          h: 2
+          w: 1
+          x: 2
+          'y': 7
+        id: p
+        data:
+          id: p
+          type: htmlcomponent
+          componentInput:
+            type: templatev2
+            connections:
+              - id: result
+                componentId: bg_1
+            eval: |
+              <div style="display: flex; align-items: center; height: 100px;">
+              <h1>
+              <p>${bg_1.result.status.message}
+              </h1>
+              </div>
+            fieldType: template
+          configuration: {}
+          customCss:
+            container:
+              class: ''
+              style: ''
+      - '12':
+          fixed: false
+          fullHeight: true
+          h: 11
+          w: 5
+          x: 7
+          'y': 0
+        '3':
+          fixed: false
+          fullHeight: false
+          h: 5
+          w: 3
+          x: 0
+          'y': 9
+        id: c
+        data:
+          id: c
+          type: fileinputcomponent
+          configuration:
+            acceptedFileTypes:
+              type: static
+              value:
+                - image/*
+            afterIcon:
+              type: static
+            allowMultiple:
+              type: static
+              value: false
+            beforeIcon:
+              type: static
+            color:
+              type: static
+            copyButton:
+              type: static
+            disabled:
+              type: static
+              value: false
+            disableNoText:
+              type: static
+            fillContainer:
+              type: static
+            includeMimeType:
+              type: static
+              value: false
+            label:
+              type: static
+            size:
+              type: static
+            style:
+              type: static
+            submittedFileText:
+              type: static
+              value: Selected file
+            text:
+              type: static
+              value: Arraste e solte os documento ou selecione manualmente
+            tooltip:
+              type: static
+            triggerOnAppLoad:
+              type: static
+          customCss:
+            container:
+              class: ''
+              style: ''
+    e-2:
+      - '12':
+          fixed: true
+          fullHeight: true
+          h: 11
+          w: 5
+          x: 0
+          'y': 0
+        '3':
+          fixed: true
+          fullHeight: false
+          h: 9
+          w: 3
+          x: 0
+          'y': 0
+        id: d
+        data:
+          id: d
+          type: htmlcomponent
+          componentInput:
+            type: templatev2
+            autoRefresh: true
+            connections: []
+            eval: >-
+              <div style="display: flex; justify-content: center; align-items:
+              center; height: 40vh; flex-direction: column;">
+
+              <center>
+                <body>
+                  <h1>Captura do Verso da CNH</h1><br>
+                  <p>Agora envie uma foto nítida do verso do seu documento CNH,
+                onde há um QRcode</p>
+                </body>
+              </center>
+
+              </div>
+            fields: {}
+            fieldType: template
+            hideRefreshButton: false
+            recomputeOnInputChanged: true
+          configuration: {}
+          customCss:
+            container:
+              class: ''
+              style: ''
+      - '12':
+          fixed: false
+          fullHeight: false
+          h: 5
+          w: 5
+          x: 6
+          'y': 3
+        '3':
+          fixed: false
+          fullHeight: false
+          h: 5
+          w: 3
+          x: 0
+          'y': 9
+        id: h
+        data:
+          id: h
+          type: buttoncomponent
+          componentInput:
+            type: runnable
+            autoRefresh: false
+            fields: {}
+            fieldType: any
+            recomputeOnInputChanged: false
+            runnable:
+              type: runnableByPath
+              name: Cria_Sessao
+              path: u/henriquelfs2/Cria_Sessao
+              runType: flow
+              schema:
+                $schema: 'https://json-schema.org/draft/2020-12/schema'
+                type: object
+                order: []
+                properties: {}
+                required: []
+          configuration:
+            acceptedFileTypes:
+              type: static
+              value:
+                - image/*
+            afterIcon:
+              type: static
+            allowMultiple:
+              type: static
+            beforeIcon:
+              type: static
+            color:
+              type: static
+              value: blue
+            confirmationModal:
+              type: oneOf
+              configuration:
+                confirmationModal:
+                  description:
+                    type: static
+                    value: Are you sure?
+                  confirmationText:
+                    type: static
+                    value: Confirm
+                  title:
+                    type: static
+                    value: Title
+                none: {}
+              selected: none
+            disabled:
+              type: static
+              value: false
+            fillContainer:
+              type: static
+              value: false
+            includeMimeType:
+              type: static
+            label:
+              type: static
+              value: Link de Acesso
+            onError:
+              type: oneOf
+              configuration:
+                close:
+                  id:
+                    type: static
+                    value: ''
+                errorOverlay: {}
+                gotoUrl:
+                  newTab:
+                    type: static
+                    value: true
+                  url:
+                    type: static
+                    value: ''
+                open:
+                  id:
+                    type: static
+                    value: ''
+                sendErrorToast:
+                  appendError:
+                    type: static
+                    value: true
+                  message:
+                    type: static
+                    value: An error occured
+                setTab:
+                  setTab:
+                    type: static
+                    value: []
+              selected: errorOverlay
+            onSuccess:
+              type: oneOf
+              configuration:
+                clearFiles:
+                  id:
+                    type: static
+                    value: ''
+                close:
+                  id:
+                    type: static
+                    value: ''
+                closeModal:
+                  modalId:
+                    type: static
+                    value: ''
+                gotoUrl:
+                  newTab:
+                    type: static
+                    value: true
+                    connections:
+                      - id: result
+                        componentId: h
+                    expr: h.result.result.sessionUrl
+                  url:
+                    type: evalv2
+                    value: ''
+                    connections:
+                      - id: result
+                        componentId: h
+                    expr: h.result.result.sessionUrl
+                none: {}
+                open:
+                  id:
+                    type: static
+                    value: ''
+                openModal:
+                  modalId:
+                    type: static
+                    value: ''
+                sendToast:
+                  message:
+                    type: static
+                    value: ''
+                setTab:
+                  setTab:
+                    type: static
+                    value: []
+              selected: gotoUrl
+            size:
+              type: static
+              value: xl
+            submittedFileText:
+              type: static
+            text:
+              type: static
+            triggerOnAppLoad:
+              type: static
+              value: false
+              connections: []
+              expr: 'false'
+          customCss:
+            button:
+              class: ''
+              style: ''
+            container:
+              class: ''
+              style: ''
+          horizontalAlignment: center
+          verticalAlignment: center
+    i-0:
+      - '12':
+          fixed: false
+          fullHeight: false
+          h: 2
+          w: 3
+          x: 0
+          'y': 0
+        '3':
+          fixed: false
+          fullHeight: false
+          h: 2
+          w: 1
+          x: 0
+          'y': 0
+        id: l
+        data:
+          id: l
+          type: htmlcomponent
+          componentInput:
+            type: templatev2
+            connections: []
+            eval: |-
+              <center>
+              <h2 class= "absolute bottom-2">
+              Imagem Frontal CNH
+              </h2>
+              </center>
+            fieldType: template
+          configuration: {}
+          customCss:
+            container:
+              class: ''
+              style: ''
+      - '12':
+          fixed: false
+          fullHeight: false
+          h: 17
+          w: 8
+          x: 4
+          'y': 1
+        '3':
+          fixed: false
+          fullHeight: false
+          h: 15
+          w: 3
+          x: 0
+          'y': 10
+        id: 'n'
+        data:
+          id: 'n'
+          type: htmlcomponent
+          componentInput:
+            type: templatev2
+            connections:
+              - id: result
+                componentId: bg_0
+              - id: result
+                componentId: bg_2
+            eval: >
+              <center><h2> Informações do Usuário </h2></center>
+
+              <br>
+
+              <b>Nome</b>: <u>${bg_0.result.result[0].fields[0].value}</u><br>
+
+              <b>Data da Primeira hailitação</b>:
+              <u>${bg_0.result.result[0].fields[1].value}</u><br>
+
+              <b>Data de Nascimento</b>:
+              <u>${bg_0.result.result[0].fields[2].value}</u><br>
+
+              <b>Local de Nascimento</b>:
+              <u>${bg_0.result.result[0].fields[3].value}</u><br>
+
+              <b>Órgão Emissor</b>:
+              <u>${bg_0.result.result[0].fields[4].value}</u><br>
+
+              <b>Data de Emissão</b>:
+              <u>${bg_0.result.result[0].fields[5].value}</u><br>
+
+              <b>Data de Validade</b>:
+              <u>${bg_0.result.result[0].fields[6].value}</u><br>
+
+              <b>Tipo de Hailitação</b>:
+              <u>${bg_0.result.result[0].fields[7].value}</u><br>
+
+              <b>RG</b>: <u>${bg_0.result.result[0].fields[9].value}</u><br>
+
+              <b>CPF</b>: <u>${bg_0.result.result[0].fields[15].value}</u><br>
+
+              <br>
+
+              <br>
+
+              <br>
+
+              <center><h2> Scores de Validade </h2></center>
+
+              <b>Veracidade da CNH</b>:
+              <u>${bg_0.result.result[0].score}</u><br>
+
+              <b>Similaridade QrCode x CNH</b>:
+              <u>${bg_2.result.detalhes_completos.facematch1.result.similarity}</u><br>
+
+              <b>Similaridade QrCode x Liveness</b>:
+              <u>${bg_2.result.detalhes_completos.facematch2.result.similarity}</u><br>
+
+              <b>Vivacidade</b>:
+              <u>${bg_2.result.detalhes_completos.liveness.livenessScore}</u><br>
+
+              <b>Resultado geral da Avaliação</b>:
+              <u>${bg_2.result.status_geral_da_validacao}</u><br>
+            expr: 'n.result[0].headers[0]'
+            fieldType: template
+          configuration:
+            acceptedFileTypes:
+              type: static
+              value:
+                - image/*
+            afterIcon:
+              type: static
+            allowMultiple:
+              type: static
+            beforeIcon:
+              type: static
+            color:
+              type: static
+            disabled:
+              type: static
+            fillContainer:
+              type: static
+            includeMimeType:
+              type: static
+            label:
+              type: static
+            size:
+              type: static
+            submittedFileText:
+              type: static
+            text:
+              type: static
+            triggerOnAppLoad:
+              type: static
+          customCss:
+            container:
+              class: ''
+              style: ''
+      - '12':
+          fixed: false
+          fullHeight: false
+          h: 7
+          w: 3
+          x: 0
+          'y': 2
+        '3':
+          fixed: false
+          fullHeight: false
+          h: 7
+          w: 1
+          x: 0
+          'y': 2
+        id: j
+        data:
+          id: j
+          type: imagecomponent
+          configuration:
+            altText:
+              type: static
+              value: ''
+            imageFit:
+              type: static
+              value: contain
+            source:
+              type: evalv2
+              value: ''
+              connections:
+                - id: result
+                  componentId: g
+              expr: 'g.result[0].data'
+            sourceKind:
+              type: static
+              value: png encoded as base64
+          customCss:
+            image:
+              class: "bg-gray-50\r\nrounded"
+              style: ''
+      - '12':
+          fixed: false
+          fullHeight: false
+          h: 2
+          w: 3
+          x: 0
+          'y': 9
+        '3':
+          fixed: false
+          fullHeight: false
+          h: 2
+          w: 1
+          x: 2
+          'y': 0
+        id: m
+        data:
+          id: m
+          type: htmlcomponent
+          componentInput:
+            type: templatev2
+            connections: []
+            eval: |-
+              <h2 class= "absolute bottom-2">
+              <center>Imagem Verso CNH</center>
+              </h2>
+            fieldType: template
+          configuration:
+            afterIcon:
+              type: static
+            beforeIcon:
+              type: static
+            color:
+              type: static
+            disabled:
+              type: static
+            fillContainer:
+              type: static
+            label:
+              type: static
+            size:
+              type: static
+            triggerOnAppLoad:
+              type: static
+          customCss:
+            container:
+              class: ''
+              style: ''
+      - '12':
+          fixed: false
+          fullHeight: false
+          h: 7
+          w: 3
+          x: 0
+          'y': 11
+        '3':
+          fixed: false
+          fullHeight: false
+          h: 7
+          w: 1
+          x: 2
+          'y': 2
+        id: k
+        data:
+          id: k
+          type: imagecomponent
+          configuration:
+            altText:
+              type: static
+              value: ''
+            imageFit:
+              type: static
+              value: contain
+            source:
+              type: evalv2
+              value: ''
+              connections:
+                - id: result
+                  componentId: c
+              expr: 'c.result[0].data'
+            sourceKind:
+              type: static
+              value: png encoded as base64
+          customCss:
+            image:
+              class: "bg-gray-50\r\nrounded"
+              style: ''
+  theme:
+    type: path
+    path: f/app_themes/theme_0
+  unusedInlineScripts: []
+policy:
+  allowed_s3_keys: []
+  execution_mode: publisher
+  s3_inputs: []
+  triggerables_v2:
+    'bg_0:flow/u/henriquelfs2/IDP_flow':
+      allow_user_resources: []
+      one_of_inputs: {}
+      static_inputs: {}
+    'bg_1:flow/u/henriquelfs2/QrCode_flow':
+      allow_user_resources: []
+      one_of_inputs: {}
+      static_inputs: {}
+    'bg_2:flow/u/henriquelfs2/Verification':
+      allow_user_resources: []
+      one_of_inputs: {}
+      static_inputs: {}
+    'h:flow/u/henriquelfs2/Cria_Sessao':
+      allow_user_resources: []
+      one_of_inputs: {}
+      static_inputs: {}

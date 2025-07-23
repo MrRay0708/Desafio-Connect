@@ -1,0 +1,9 @@
+summary: Get_token
+description: ''
+lock: '!inline u/henriquelfs2/get_token.script.lock'
+kind: script
+schema:
+  $schema: 'https://json-schema.org/draft/2020-12/schema'
+  type: object
+  properties: {}
+  required: []

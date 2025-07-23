@@ -1,0 +1,27 @@
+summary: Face_match
+description: ''
+lock: '!inline u/henriquelfs2/face_match.script.lock'
+kind: script
+schema:
+  $schema: 'https://json-schema.org/draft/2020-12/schema'
+  type: object
+  properties:
+    rosto1_b64:
+      type: string
+      description: ''
+      default: null
+      originalType: string
+    rosto2_b64:
+      type: string
+      description: ''
+      default: null
+      originalType: string
+    token:
+      type: string
+      description: ''
+      default: null
+      originalType: string
+  required:
+    - rosto1_b64
+    - rosto2_b64
+    - token
