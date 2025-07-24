@@ -5,7 +5,7 @@ Este repositório tem como finalidade importar e apresentar o workflow desenvolv
 A Função do Workflow é autenticar um documento CNH e validá-lo através da verificação de seus dados e da autenticidade visual do usuário com as fotos de identidade apresentadas.
 
 ## Instruções
-O Workflow é armazenado dentro da pasta "u/henriquelfs2". para execução do projeto é necessário exportar as componentes para um ambiente windmill e atentar-se ao path que direcionam, se possível inicalizr em um workspace com nome de usuário henriquelfs2 facilita a integração, se não deve ser substituido manualmente.
+O Workflow é armazenado dentro da pasta "u/henriquelfs2". para execução do projeto é necessário exportar as componentes para um ambiente windmill e atentar-se ao path que direcionam, se possível inicalizar em um workspace com nome de usuário henriquelfs2 facilita a integração, se não deve ser substituido manualmente.
 - Scripts que se encontram tanto em .py, quanto .yaml
 - App AutenticadorCNH que servirá como interface
 - Flows que servirão como orquestradores e devolverão os resultados necessários para o App
